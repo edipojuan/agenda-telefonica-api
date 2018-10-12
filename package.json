@@ -1,0 +1,29 @@
+{
+  "name": "agenda-telefonica-api",
+  "version": "1.0.0",
+  "description": "Agenda telefônica para usuários autenticados.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edipojs/agenda-telefonica-api.git"
+  },
+  "keywords": [
+    "agenda",
+    "telefone",
+    "autenticacao",
+    "api",
+    "authenticate",
+    "node",
+    "express",
+    "mongoose"
+  ],
+  "author": "Édipo Juan <edipojs@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/edipojs/agenda-telefonica-api/issues"
+  },
+  "homepage": "https://github.com/edipojs/agenda-telefonica-api#readme"
+}
