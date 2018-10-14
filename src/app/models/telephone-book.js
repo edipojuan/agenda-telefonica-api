@@ -6,10 +6,18 @@ const schema = new Schema({
     type: String,
     required: true
   },
-  email: [
+  emails: [
     {
-      type: String,
-      lowercase: true
+      email: {
+        type: String,
+        lowercase: true
+      },
+      type: {
+        type: String,
+        required: true,
+        enum: ['Pessoal', 'Trabalho', 'Outro'],
+        default: 'Outro'
+      }
     }
   ],
   phones: [
@@ -21,8 +29,8 @@ const schema = new Schema({
       type: {
         type: String,
         required: true,
-        enum: ['Móvel', 'Fixo', 'Outros'],
-        default: 'Outros'
+        enum: ['Móvel', 'Fixo', 'Outro'],
+        default: 'Outro'
       }
     }
   ],

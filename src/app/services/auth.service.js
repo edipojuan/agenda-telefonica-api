@@ -3,7 +3,9 @@
 const jwt = require('jsonwebtoken');
 
 exports.generateToken = async (data) => {
-  return jwt.sign(data, global.SALT_KEY, { expiresIn: '1d' });
+  const expiresIn = 120;
+  const idToken = jwt.sign(data, global.SALT_KEY, { expiresIn });
+  return { idToken, expiresIn };
 };
 
 exports.authorize = function(req, res, next) {

@@ -14,35 +14,39 @@ exports.post = async (req, res, next) => {
 
     const token = await authService.generateToken({ code: auth.code });
 
-    return res.status(201).send({ token });
+    return res.status(201).send(token);
   } catch (err) {
     return printError(res, err, 'cadastrar o código');
   }
 };
 
 exports.authenticate = async (req, res, next) => {
-  if (!req.body.code) {
-    return res.status(400).send({ erro: 'Informe um código' });
+  try {
+    if (!req.body.code) {
+      return res.status(400).send({ erro: 'Informe um código' });
+    }
+
+    const auth = await repository.get();
+
+    if (!auth) {
+      return res.status(400).send({ erro: 'Código não cadastrado' });
+    }
+
+    if (!auth.code) {
+      return res.status(400).send({ erro: 'Código não encontrado' });
+    }
+
+    if (!(await bcrypt.compare(req.body.code, auth.code))) {
+      return res.status(400).send({ erro: 'Código inválido' });
+    }
+
+    const { code, createdAt } = auth;
+    const token = await authService.generateToken({ code, createdAt });
+
+    res.send(token);
+  } catch (err) {
+    return printError(res, err, 'autenticar');
   }
-
-  const auth = await repository.get();
-
-  if (!auth) {
-    return res.status(400).send({ erro: 'Código não cadastrado' });
-  }
-
-  if (!auth.code) {
-    return res.status(400).send({ erro: 'Código não encontrado' });
-  }
-
-  if (!(await bcrypt.compare(req.body.code, auth.code))) {
-    return res.status(400).send({ erro: 'Código inválido' });
-  }
-
-  const { code, createdAt } = auth;
-  const token = await authService.generateToken({ code, createdAt });
-
-  res.send({ token });
 };
 
 const printError = (res, data, message) => res.status(400).send({ messae: `Falha ao ${message}`, data });
