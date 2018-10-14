@@ -4,8 +4,8 @@ const repository = require('../repositories/telephone-book.repository');
 
 exports.get = async (req, res, next) => {
   try {
-    const itens = await repository.get();
-    res.send(itens);
+    const contacts = await repository.get();
+    res.send(contacts);
   } catch (err) {
     return printError(res, err, 'obter a agenda telefônica.');
   }
@@ -13,11 +13,28 @@ exports.get = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {
   try {
-    const item = await repository.create(req.body);
-    return res.status(201).send(item);
+    const contact = await repository.create(req.body);
+    return res.status(201).send(contact);
   } catch (err) {
-    console.log(err);
     return printError(res, err, 'adicionar um contato');
+  }
+};
+
+exports.put = async (req, res, next) => {
+  try {
+    const contact = await repository.update(req.params.id, req.body);
+    return res.send(contact);
+  } catch (err) {
+    return printError(res, err, 'alterar o contato');
+  }
+};
+
+exports.del = async (req, res, next) => {
+  try {
+    await repository.delete(req.params.id);
+    res.status(200).send('Contato excluído com sucesso');
+  } catch (err) {
+    return printError(res, err, 'excluir o contato');
   }
 };
 

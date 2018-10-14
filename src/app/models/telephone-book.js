@@ -6,15 +6,26 @@ const schema = new Schema({
     type: String,
     required: true
   },
-  email: {
-    type: String,
-    lowercase: true
-  },
-  phone: {
-    type: String,
-    unique: true,
-    required: true
-  },
+  email: [
+    {
+      type: String,
+      lowercase: true
+    }
+  ],
+  phones: [
+    {
+      number: {
+        type: String,
+        required: true
+      },
+      type: {
+        type: String,
+        required: true,
+        enum: ['Móvel', 'Fixo', 'Outros'],
+        default: 'Outros'
+      }
+    }
+  ],
   company: {
     type: String
   },

@@ -3,10 +3,7 @@
 const mongoose = require('mongoose');
 const Model = mongoose.model('TelephoneBook');
 
-exports.get = async () => {
-  return await Model.find({});
-};
-
-exports.create = async (doc) => {
-  return await await Model.create(doc);
-};
+exports.create = async (doc) => await await Model.create(doc);
+exports.update = async (id, data) => await await Model.findByIdAndUpdate(id, data, { new: true });
+exports.delete = async (id) => await Model.findByIdAndRemove(id);
+exports.get = async () => await Model.find({});
