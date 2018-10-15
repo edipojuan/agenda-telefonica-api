@@ -8,7 +8,7 @@ const schema = new Schema({
   },
   emails: [
     {
-      email: {
+      value: {
         type: String,
         lowercase: true
       },
@@ -22,7 +22,7 @@ const schema = new Schema({
   ],
   phones: [
     {
-      number: {
+      value: {
         type: String,
         required: true
       },

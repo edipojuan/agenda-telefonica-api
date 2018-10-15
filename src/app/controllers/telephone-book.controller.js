@@ -4,7 +4,7 @@ const repository = require('../repositories/telephone-book.repository');
 
 exports.get = async (req, res, next) => {
   try {
-    const contacts = await repository.get();
+    const contacts = await repository.get(req.query);
     res.send(contacts);
   } catch (err) {
     return printError(res, err, 'obter a agenda telefônica.');
