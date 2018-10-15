@@ -1,7 +1,7 @@
 {
   "name": "agenda-telefonica-api",
   "version": "1.0.0",
-  "description": "Agenda telefônica para usuários autenticados.",
+  "description": "Agenda telefônica com autenticação via código.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon bin"

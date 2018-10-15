@@ -38,4 +38,7 @@ exports.del = async (req, res, next) => {
   }
 };
 
-const printError = (res, data, message) => res.status(400).send({ messae: `Falha ao ${message}`, data });
+const printError = (res, data, message) => res.status(400).send({
+  message: `Falha ao ${message}`,
+  data
+});

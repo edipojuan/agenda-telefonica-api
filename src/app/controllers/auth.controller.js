@@ -8,11 +8,17 @@ const repository = require('../repositories/auth.repository');
 
 exports.post = async (req, res, next) => {
   try {
-    const { code } = req.body;
+    const {
+      code
+    } = req.body;
 
-    const auth = await repository.create({ code });
+    const auth = await repository.create({
+      code
+    });
 
-    const token = await authService.generateToken({ code: auth.code });
+    const token = await authService.generateToken({
+      code: auth.code
+    });
 
     return res.status(201).send(token);
   } catch (err) {
@@ -23,25 +29,39 @@ exports.post = async (req, res, next) => {
 exports.authenticate = async (req, res, next) => {
   try {
     if (!req.body.code) {
-      return res.status(400).send({ erro: 'Informe um código' });
+      return res.status(400).send({
+        erro: 'Informe um código'
+      });
     }
 
     const auth = await repository.get();
 
     if (!auth) {
-      return res.status(400).send({ erro: 'Código não cadastrado' });
+      return res.status(400).send({
+        erro: 'Código não cadastrado'
+      });
     }
 
     if (!auth.code) {
-      return res.status(400).send({ erro: 'Código não encontrado' });
+      return res.status(400).send({
+        erro: 'Código não encontrado'
+      });
     }
 
     if (!(await bcrypt.compare(req.body.code, auth.code))) {
-      return res.status(400).send({ erro: 'Código inválido' });
+      return res.status(400).send({
+        erro: 'Código inválido'
+      });
     }
 
-    const { code, createdAt } = auth;
-    const token = await authService.generateToken({ code, createdAt });
+    const {
+      code,
+      createdAt
+    } = auth;
+    const token = await authService.generateToken({
+      code,
+      createdAt
+    });
 
     res.send(token);
   } catch (err) {
@@ -49,4 +69,7 @@ exports.authenticate = async (req, res, next) => {
   }
 };
 
-const printError = (res, data, message) => res.status(400).send({ messae: `Falha ao ${message}`, data });
+const printError = (res, data, message) => res.status(400).send({
+  message: `Falha ao ${message}`,
+  data
+});
