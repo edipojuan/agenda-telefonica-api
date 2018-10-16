@@ -32,13 +32,14 @@ exports.put = async (req, res, next) => {
 exports.del = async (req, res, next) => {
   try {
     await repository.delete(req.params.id);
-    res.status(200).send('Contato excluído com sucesso');
+    res.status(200).send({ message: 'Contato excluído com sucesso' });
   } catch (err) {
     return printError(res, err, 'excluir o contato');
   }
 };
 
-const printError = (res, data, message) => res.status(400).send({
-  message: `Falha ao ${message}`,
-  data
-});
+const printError = (res, data, message) =>
+  res.status(400).send({
+    message: `Falha ao ${message}`,
+    data
+  });

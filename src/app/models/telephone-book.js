@@ -23,8 +23,7 @@ const schema = new Schema({
   phones: [
     {
       value: {
-        type: String,
-        required: true
+        type: String
       },
       type: {
         type: String,
