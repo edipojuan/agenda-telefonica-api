@@ -13,6 +13,11 @@ exports.get = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {
   try {
+    const { emails, phones } = req.body;
+
+    req.body.emails = itensValid(emails);
+    req.body.phones = itensValid(phones);
+
     const contact = await repository.create(req.body);
     return res.status(201).send(contact);
   } catch (err) {
@@ -22,6 +27,11 @@ exports.post = async (req, res, next) => {
 
 exports.put = async (req, res, next) => {
   try {
+    const { emails, phones } = req.body;
+
+    req.body.emails = itensValid(emails);
+    req.body.phones = itensValid(phones);
+
     const contact = await repository.update(req.params.id, req.body);
     return res.send(contact);
   } catch (err) {
@@ -36,6 +46,19 @@ exports.del = async (req, res, next) => {
   } catch (err) {
     return printError(res, err, 'excluir o contato');
   }
+};
+
+const itensValid = (itens) => {
+  if (itens) {
+    let itensValid = [];
+    for (let index = 0; index < itens.length; index++) {
+      if (itens[index].value && itens[index].value.trim().length > 0) {
+        itensValid = [...itensValid, itens[index]];
+      }
+    }
+    return itensValid;
+  }
+  return undefined;
 };
 
 const printError = (res, data, message) =>
