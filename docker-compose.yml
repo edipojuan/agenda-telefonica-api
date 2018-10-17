@@ -8,7 +8,8 @@ services:
     command: npm start
     ports:
       - '3000:3000'
-    volumes: .:/usr/app
+    volumes:
+      - .:/usr/app
     links:
       - mongo
   mongo:
